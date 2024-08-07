@@ -50,7 +50,7 @@ class RedisClient {
   async del(key) {
     await promisify(this.client.DEL).bind(this.client)(key);
   }
-}
+   }
     
 export const redisClient = new RedisClient();
 export default redisClient;
