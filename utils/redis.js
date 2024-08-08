@@ -20,7 +20,7 @@ class RedisClient {
       this.client.on('connect', () => {
         this.isClientConnected = true;
       });
-    }
+  }
 
   /**
    * returns true when the connection to Redis is a success
