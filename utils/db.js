@@ -1,11 +1,10 @@
 import mongodb from 'mongodb';
-import Collection from 'mongodb/lib/collection';
+//import Collection from 'mongodb/lib/collection';
 import { existsSync, readFileSync } from 'fs';
 
 /**
  * Represents a MongoDB
  */
-
 
 /**
  * Loads the appropriate environment variables for an event.
