@@ -27,7 +27,7 @@ class RedisClient {
   isAlive() {
     return this.isClientConnected;
   }
-  
+
   /**
    * takes a string key as argument and returns the Redis value stored for this key
    */
