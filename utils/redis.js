@@ -1,7 +1,6 @@
 import { promisify } from 'util';
 import { createClient } from 'redis';
 
-
 /**
  * to creat a class redis
  */
@@ -11,15 +10,15 @@ class RedisClient {
    * to creat new RedisClient
    */
   constructor() {
-      this.client = createClient();
+    this.client = createClient();
+    this.isClientConnected = true;
+    this.client.on('error', (err) => {
+      console.error('Redis client failed to connect:', err.message || err.toString());
+      this.isClientConnected = false;
+    });
+    this.client.on('connect', () => {
       this.isClientConnected = true;
-      this.client.on('error', (err) => {
-        console.error('Redis client failed to connect:', err.message || err.toString());
-        this.isClientConnected = false;
-      });
-      this.client.on('connect', () => {
-        this.isClientConnected = true;
-      });
+    });
   }
 
   /**
@@ -28,7 +27,7 @@ class RedisClient {
   isAlive() {
     return this.isClientConnected;
   }
-    
+  
   /**
    * takes a string key as argument and returns the Redis value stored for this key
    */
@@ -45,12 +44,12 @@ class RedisClient {
   }
 
   /**
-   * 
+   * to delete
    */
   async del(key) {
     await promisify(this.client.DEL).bind(this.client)(key);
   }
 }
-    
+
 export const redisClient = new RedisClient();
 export default redisClient;
