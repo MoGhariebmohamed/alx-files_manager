@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable no-unused-vars */
 import { tmpdir } from 'os';
 import { promisify } from 'util';
 import Queue from 'bull/lib/queue';
@@ -30,9 +32,9 @@ const isValidId = (id) => {
   const size = 24;
   let i = 0;
   const charRanges = [
-    [48, 57],
-    [97, 102],
-    [65, 70],
+    [48, 57], // 0 - 9
+    [97, 102], // a - f
+    [65, 70], // A - F
   ];
   if (typeof id !== 'string' || id.length !== size) {
     return false;
@@ -52,6 +54,8 @@ const isValidId = (id) => {
 export default class FilesController {
   /**
    * Uploads a file.
+   * @param {Request} req The Express request object.
+   * @param {Response} res The Express response object.
    */
   static async postUpload(req, res) {
     const { user } = req;
@@ -93,7 +97,7 @@ export default class FilesController {
       ? process.env.FOLDER_PATH.trim()
       : joinPath(tmpdir(), DEFAULT_ROOT_FOLDER);
     // default baseDir == '/tmp/files_manager'
-    //  '%USERPROFILE%/AppData/Local/Temp/files_manager';
+    // or (on Windows) '%USERPROFILE%/AppData/Local/Temp/files_manager';
     const newFile = {
       userId: new mongoDBCore.BSON.ObjectId(userId),
       name,
