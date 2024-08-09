@@ -1,6 +1,7 @@
 import mongodb from 'mongodb';
-//import Collection from 'mongodb/lib/collection';
+import Collection from 'mongodb/lib/collection';
 import { existsSync, readFileSync } from 'fs';
+import envLoader from './envLoader';
 
 /**
  * Represents a MongoDB
